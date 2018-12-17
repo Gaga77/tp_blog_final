@@ -1,0 +1,25 @@
+<!--On veut utiliser le template base.html -->
+{{ template "base.html" }}
+
+
+<!-- le template base.html nécessite une zone "contenu"
+Tout ce qui se trouve à l'intérieur sera inséré à la place du {{ insert #contenu}} -->
+{{ section #contenu }}
+<main class="container border mt-4 p-4">
+    <h1>Bienvenue sur le blog de {{ #prenom }}</h1>
+
+    {{ loop #liste as #article }}
+    <div class="card mt-4">
+        <div class="card-header">
+            {{ #article.date_fr }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ #article.titre }}</h5>
+            <p class="card-text">{{ #article.extrait }}</p>
+            <a href="article-{{ #article.id }}" class="btn btn-primary">Lire</a>
+        </div>
+    </div>
+    {{ endloop }}
+
+</main>
+{{ endsection }}

@@ -1,0 +1,29 @@
+<!--On veut utiliser le template base.html -->
+{{ template "base.html" }}
+
+{{ section #contenu }}
+<main class="container border mt-4 p-4">
+    <h1>Connexion</h1>
+
+    {{ loop #messages as #msg }}
+        {{ #msg |RAW }}
+    {{ endloop }}
+
+    <form class="" action="login" method="post">
+        <div class="form-group">
+            <label>Pseudo/ email</label>
+            <input class="form-control" type="texte" name="login"/>
+        </div>
+
+        <div class="form-group">
+            <label>Mot de passe:</label>
+            <input class="form-control" type="texte" name="mdp"/>
+        </div>
+        <input class="btn btn-primary" type="submit" name="connexion" value="Connexion" />
+
+
+
+    </form>
+
+</main>
+{{ endsection }}
