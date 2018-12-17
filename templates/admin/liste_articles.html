@@ -17,6 +17,7 @@
 
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Catégorie article</th>
                     <th scope="col">Titre</th>
                     <th scope="col">Date</th>
                     <th scope="col">Extrait</th>
@@ -28,6 +29,7 @@
                 {{ loop #liste as #article }}
                 <tr>
                     <th scope="row">{{ #article.id }}</th>
+                    <td>{{ #article.id_cat }}</td>
                     <td>{{ #article.titre }}</td>
                     <td>{{ #article.date_fr }}</td>
                     <td>{{ #article.extrait }}</td>

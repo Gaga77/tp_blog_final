@@ -13,7 +13,7 @@
 
         <div clas="form-group">
         <label>Catégorie de l'article</label>
-        <select name="categorie">
+        <select name="id_cat">
             {{ loop #nom_cat as #categorie }}
             <option value="{{ #categorie.id_cat }}">{{ #categorie.nom_cat }}</option>
             {{ endloop }}

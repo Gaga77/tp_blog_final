@@ -13,7 +13,7 @@ class Article {
     private $titre;
     private $date_publication;
     private $contenu;
-    //private $id_cat;
+    private $id_cat;
 
     public function __construct(int $id){
         //verifie que l'id correspond à un article, à une id existante
@@ -31,7 +31,7 @@ class Article {
         $this->titre = $article['titre'];
         $this->date_publication = $article['date_publication'];
         $this->contenu = $article['contenu'];
-        //$this->id_cat = $article['id_cat'];
+        $this->id_cat = $article['id_cat'];
     } // fin __construct
 
     // pour pouvoir lire ce que renvoit les construct
@@ -51,9 +51,9 @@ class Article {
         return $this->contenu;
     }
 
-    // public function getIdcat() : int{
-    //     return $this->id_cat;
-    // }
+     public function getIdcat() : int{
+         return $this->id_cat;
+     }
 
     public function dateFr() : string {
         return(new \DateTime($this->date_publication))->format('d/m/Y');
@@ -116,7 +116,7 @@ class Article {
     * @return bool true si inséré en BDD
     */
 
-    public static function ajouter(string $titre, string $contenu) : bool
+    public static function ajouter(string $titre, string $contenu, int $id_cat) : bool
     {
         //vérification validation des données
         if (!self::validation($titre, $contenu)){
@@ -128,11 +128,13 @@ class Article {
             'INSERT INTO article (
                 titre,
                 date_publication,
-                contenu
+                contenu,
+                id_cat
             ) VALUES (
                 :titre,
                 NOW(),
-                :contenu
+                :contenu,
+                :id_cat
             )'
         );
 
@@ -140,7 +142,8 @@ class Article {
         // les index correspondent aux values de la requete insert pour dire tel marqueur va avec tel $_POST
         $resultat = $insert->execute([
             "titre" => $titre,
-            "contenu" => $contenu
+            "contenu" => $contenu,
+            "id_cat" => $id_cat
         ]);
         // si l'insertion ne vaut pas true ->msg erreur
         if(!$resultat){
@@ -162,6 +165,7 @@ class Article {
         $liste = App::$db->query(
             'SELECT
             id,
+            id_cat,
             titre,
             date_publication,
             contenu,

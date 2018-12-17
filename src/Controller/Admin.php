@@ -46,7 +46,7 @@ class Admin extends ControlleurFramework
 
         // formulaire ajout article
         if(isset($_POST['ajouter']) && User::verifToken($_POST['token'] ?? '')){
-            $ajout = Article::ajouter($_POST['titre'], $_POST['contenu']);
+            $ajout = Article::ajouter($_POST['titre'], $_POST['contenu'], $_POST['id_cat']);
 
             //si ajouté, vider le formulaire
             if($ajout){
