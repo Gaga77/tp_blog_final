@@ -13,6 +13,7 @@ use User\User;
 use Phunder\Core\Messager;
 use Phunder\Core\User\UserManager;
 use Article\Article;
+use Categorie\Categorie;
 
 /**
 * Demo home Controller
@@ -99,6 +100,9 @@ class Home extends ControlleurFramework
 
                 self::set('titre_HTML', $article->getTitre());
                 self::set('titre', $article->getTitre());
+
+                // Categorie::set('nom_cat', $categorie->getNom());
+                // $categorie::Categorie->getNom()
 
                 self::set('date', $article->dateFr());
                 self::set('contenu', $article->markdownToHtml());

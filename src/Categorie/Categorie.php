@@ -13,197 +13,179 @@ class Categorie {
     private $date_creation;
     private $description_cat;
 
-//     public function __construct(int $id){
-//         //verifie que l'id correspond à un article, à une id existante
-//         $article = App::$db->prepare('SELECT * FROM article WHERE id = :id');
-//         $article->bindParam(':id', $id, \PDO::PARAM_INT);
-//         $article->execute();
-//
-//         // si c'est pas le cas -> erreur
-//         if($article->rowCount() != 1){
-//             throw new \Exception("Article inconnu");
-//         }
-//         // définir les propriétés
-//         $article = $article->fetch(\PDO::FETCH_ASSOC);
-//         $this->id = $article['id'];
-//         $this->titre = $article['titre'];
-//         $this->date_publication = $article['date_publication'];
-//         $this->contenu = $article['contenu'];
-//     } // fin __construct
-//
-//     // pour pouvoir lire ce que renvoit les construct
-//     public function getId() : int {
-//         return $this->id;
-//     }
-//
-//     public function getTitre() : string {
-//         return $this->titre;
-//     }
-//
-//     public function getDatePublication() : string {
-//         return $this->date_publication;
-//     }
-//
-//     public function getContenu() : string{
-//         return $this->contenu;
-//     }
-//
-//     public function dateFr() : string {
-//         return(new \DateTime($this->date_publication))->format('d/m/Y');
-//     }
-//
-//     public function markdownToHtml() : string {
-//         $parsedown = new \Parsedown();
-//         return $parsedown->text($this->contenu);
-//     }
-//
-//
-//     /**
-//     * 1 - Valider  un articles
-//     *
-//     * @param string $titre Le titre de l'article
-//     * @param string $contenu Le contenu de l'article
-//     *
-//     * @return bool true si données sont valides
-//     */
-//
-//     private static function validation(string $titre, string $contenu) : bool{
-//         //tableau d'erreurs possibles
-//         $erreurs = [
-//             'titre vide' => empty(trim($titre)),
-//             'contenu vide' => empty(trim($contenu))
-//         ];
-//         // si erreur trouvée
-//         if(in_array(true, $erreurs)){
-//             Messager::message(Messager::MSG_WARNING, array_search(true, $erreurs));
-//             return false;
-//         }
-//         return true;
-//     }
-//
-//
-//     /**
-//     * 2 - Supprimer  un articles
-//     */
-//
-//     public function supprimer()
-//     {
-//         $supp = App::$db->prepare('DELETE FROM article WHERE id = :id');
-//         $supp->bindParam(':id', $this->id, \PDO::PARAM_INT);
-//
-//         $resultat = $supp->execute();
-//         if(!$resultat){
-//             Messager::message(Messager::MSG_WARNING, 'Impossible de supprimer l\'article');
-//         }
-//         Messager::message(Messager::MSG_SUCCESS, 'article supprimé');
-//     }
-//
-//
-//
-//     /**
-//     *  3 - Ajouter un articles
-//     *
-//     * @param string $titre Le titre de l'article
-//     * @param string $contenu Le contenu de l'article
-//     *
-//     * @return bool true si inséré en BDD
-//     */
-//
-//     public static function ajouter(string $titre, string $contenu) : bool
-//     {
-//         //vérification validation des données
-//         if (!self::validation($titre, $contenu)){
-//             return false;
-//         }
-//
-//         //Insertion en BDD
-//         $insert = App::$db->prepare(
-//             'INSERT INTO article (
-//                 titre,
-//                 date_publication,
-//                 contenu
-//             ) VALUES (
-//                 :titre,
-//                 NOW(),
-//                 :contenu
-//             )'
-//         );
-//
-//         //execution, execute() retourne un bool
-//         // les index correspondent aux values de la requete insert pour dire tel marqueur va avec tel $_POST
-//         $resultat = $insert->execute([
-//             "titre" => $titre,
-//             "contenu" => $contenu
-//         ]);
-//         // si l'insertion ne vaut pas true ->msg erreur
-//         if(!$resultat){
-//             Messager::message(Messager::MSG_WARNING, 'L\'article n\'a pas pu etre enregistré');
-//             return false;
-//         }
-//         Messager::message(Messager::MSG_SUCCESS, 'Article ajouté');
-//         return true;
-//
-//     } // fin fonction ajouter
-//
-//
-//     /**
-//     * 4 - Obtenir une liste d'articles
-//     *
-//     */
-//
-//     public static function liste() : array {
-//         $liste = App::$db->query(
-//             'SELECT
-//             id,
-//             titre,
-//             date_publication,
-//             contenu,
-//             DATE_FORMAT(date_publication, "%d/%m/%Y") AS date_fr,
-//             SUBSTRING(contenu, 1, 100) AS extrait
-//             FROM article
-//             ORDER BY
-//             date_publication DESC,
-//             id DESC'
-//         );
-//         return $liste->fetchAll(\PDO::FETCH_ASSOC);
-//     }
-//
-//     /**
-//     * 5 - Modifier article
-//     * @param string $titre titre de l'article
-//     * @return void $contenu contenu de l'article
-//     */
-//
-//     public function modifier(string $titre, string $contenu) : void {
-//         //validation des données
-//         if(!self::validation($titre, $contenu)) {
-//             return;
-//         }
-//
-//         //modification en BDD
-//         $edit = App::$db->prepare(
-//             'UPDATE article SET
-//             titre = :titre,
-//             contenu = :contenu
-//             WHERE id = :id'
-//         );
-//         $requete = $edit ->execute([
-//             'titre' => trim($titre),
-//             'contenu' => trim($contenu),
-//             'id' => $this->id
-//         ]);
-//
-//         // si la requete sql n'est pas exécutée correctement
-//         if(!$requete){
-//             Messager::message(Messager::MSG_WARNING, 'impossible de modifier l\'article');
-//             return;
-//         }
-//         // si tout est bon, on met à jour les propriétés
-//         $this->titre = $titre;
-//         $this->contenu = $contenu;
-//         Messager::message(Messager::MSG_SUCCESS, 'Article modifié avec succès');
-//
-//     }
+    public function __construct(int $id_cat){
+        //verifie que l'id correspond à un article, à une id existante
+        $categorie = App::$db->prepare('SELECT * FROM categories WHERE id_cat = :id_cat');
+        $categorie->bindParam(':id_cat', $id_cat, \PDO::PARAM_INT);
+        $categorie->execute();
+
+        // si c'est pas le cas -> erreur
+        if($categorie->rowCount() != 1){
+            throw new \Exception("Catégorie inconnu");
+        }
+        // définir les propriétés
+        $categorie = $categorie->fetch(\PDO::FETCH_ASSOC);
+        $this->id_cat = $categorie['id_cat'];
+        $this->nom_cat = $categorie['nom_cat'];
+        $this->date_creation = $categorie['date_creation'];
+        $this->description_cat= $categorie['description_cat'];
+    } // fin __construct
+
+    // pour pouvoir lire ce que renvoit les construct
+    public function getId() : int {
+        return $this->id_cat;
+    }
+
+    public function getNom() : string {
+        return $this->nom_cat;
+    }
+
+    public function getDateCrea() : string {
+        return $this->date_creation;
+    }
+
+    public function getDescription() : string{
+        return $this->description_cat;
+    }
+
+    public function dateFr() : string {
+        return(new \DateTime($this->date_publication))->format('d/m/Y');
+    }
+
+
+    /**
+    * 4 - Obtenir une liste de catégories
+    *
+    */
+
+     public static function liste() : array {
+         $liste = App::$db->query(
+             'SELECT
+             id_cat,
+             nom_cat,
+             date_creation,
+             description_cat,
+             DATE_FORMAT(date_creation, "%d/%m/%Y") AS date_fr
+             FROM categories
+             ORDER BY
+             nom_cat ASC'
+         );
+         return $liste->fetchAll(\PDO::FETCH_ASSOC);
+     }
+
+        /*
+         * 1 - Valider  l'ajout des catégories
+         */
+
+        private static function validation(string $nom_cat, string $description_cat) : bool{
+            //tableau d'erreurs possibles
+            $erreurs = [
+                'nom catégorie vide' => empty(trim($nom_cat)),
+                'description vide' => empty(trim($description_cat))
+            ];
+            // si erreur trouvée
+            if(in_array(true, $erreurs)){
+                Messager::message(Messager::MSG_WARNING, array_search(true, $erreurs));
+                return false;
+            }
+            return true;
+        }
+
+
+     /**
+      *  3 - Ajouter une catégorie
+      */
+
+     public static function ajouter(string $nom_cat, string $description_cat) : bool
+     {
+         //vérification validation des données
+         if (!self::validation($nom_cat, $description_cat)){
+             return false;
+         }
+
+         //Insertion en BDD
+         $insert = App::$db->prepare(
+             'INSERT INTO categories (
+                 nom_cat,
+                 date_creation,
+                 description_cat
+             ) VALUES (
+                 :nom_cat,
+                 NOW(),
+                 :description_cat
+             )'
+         );
+
+
+         //execution, execute() retourne un bool
+         // les index correspondent aux values de la requete insert pour dire tel marqueur va avec tel $_POST
+         $resultat = $insert->execute([
+             "nom_cat" => $nom_cat,
+             "description_cat" => $description_cat
+         ]);
+         // si l'insertion ne vaut pas true ->msg erreur
+         if(!$resultat){
+             Messager::message(Messager::MSG_WARNING, 'La catégorie  n\'a pas pu etre ajouté');
+             return false;
+         }
+         Messager::message(Messager::MSG_SUCCESS, 'Catégorie ajouté');
+         return true;
+
+     } // fin fonction ajouter
+
+
+    /**
+    * 2 - Supprimer  une catégorie
+    */
+    public function supprimer()
+    {
+        $supp = App::$db->prepare('DELETE FROM categories WHERE id_cat = :id_cat');
+        $supp->bindParam(':id_cat', $this->id_cat, \PDO::PARAM_INT);
+
+        $resultat = $supp->execute();
+        if(!$resultat){
+            Messager::message(Messager::MSG_WARNING, 'Impossible de supprimer la categorie');
+        }
+        Messager::message(Messager::MSG_SUCCESS, 'categorie supprimée');
+    }
+
+
+     /**
+     * 5 - Modifier article
+     * @param string $titre titre de l'article
+     * @return void $contenu contenu de l'article
+     */
+
+    public function modifier(string $nom_cat, string $description_cat) : void {
+        //validation des données
+        if(!self::validation($nom_cat, $description_cat)) {
+            return;
+        }
+
+        //modification en BDD
+        $edit = App::$db->prepare(
+            'UPDATE categories SET
+            nom_cat = :nom_cat,
+            description_cat = :description_cat
+            WHERE id_cat = :id_cat'
+        );
+        $requete = $edit ->execute([
+            'nom_cat' => trim($nom_cat),
+            'description_cat' => trim($description_cat),
+            'id_cat' => $this->id_cat
+        ]);
+
+        // si la requete sql n'est pas exécutée correctement
+        if(!$requete){
+            Messager::message(Messager::MSG_WARNING, 'impossible de modifier la catégorie');
+            return;
+        }
+        // si tout est bon, on met à jour les propriétés
+        $this->nom_cat = $nom_cat;
+        $this->description_cat = $description_cat;
+        Messager::message(Messager::MSG_SUCCESS, 'catégorie modifiée avec succès');
+
+    }
 //
 //
-// } // fin class article
+} // fin class catégorie

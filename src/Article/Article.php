@@ -4,6 +4,7 @@ namespace Article;
 
 use Phunder\Core\Messager;
 use App\App;
+use Categorie\Categorie;
 
 
 class Article {
@@ -12,6 +13,7 @@ class Article {
     private $titre;
     private $date_publication;
     private $contenu;
+    //private $id_cat;
 
     public function __construct(int $id){
         //verifie que l'id correspond à un article, à une id existante
@@ -29,6 +31,7 @@ class Article {
         $this->titre = $article['titre'];
         $this->date_publication = $article['date_publication'];
         $this->contenu = $article['contenu'];
+        //$this->id_cat = $article['id_cat'];
     } // fin __construct
 
     // pour pouvoir lire ce que renvoit les construct
@@ -47,6 +50,10 @@ class Article {
     public function getContenu() : string{
         return $this->contenu;
     }
+
+    // public function getIdcat() : int{
+    //     return $this->id_cat;
+    // }
 
     public function dateFr() : string {
         return(new \DateTime($this->date_publication))->format('d/m/Y');

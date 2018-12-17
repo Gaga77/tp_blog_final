@@ -27,7 +27,15 @@ new Router([
         '/dashboard' => [PageBack::class, 'listeArticles'],
         '/add_article' => [PageBack::class, 'ajouterArticle'],
         'R>/edit-(\d+)' => [PageBack::class, 'modifierArticle'], // groupe de capture ()
-        'R>/supp-(\d+)' => [PageBack::class, 'supprimerArticle']
+        'R>/supp-(\d+)' => [PageBack::class, 'supprimerArticle'],
+        '/categories' => [PageBack::class, 'listeCategories'],
+        '/add_categories' => [PageBack::class, 'ajouterCategories'],
+        'R>/edit-(\d+)' => [PageBack::class, 'modifierCategorie'],
+        'R>/supp-(\d+)' => [PageBack::class, 'supprimerCategorie']
+
+
+
+
     ]
 ],
 [PageFront::class, 'page_404']

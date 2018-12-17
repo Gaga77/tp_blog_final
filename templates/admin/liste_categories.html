@@ -3,10 +3,10 @@
 {{ section #contenu }}
 
 <main class="container mt-4">
-    <a class="btn btn-primary" href="add_article">Ajouter des articles</a>
+    <a class="btn btn-primary" href="add_categories">Ajouter des catégories</a>
     <div class="border mt-4 p-4">
 
-        <h1>Liste des articles</h1>
+        <h1>Liste des catégories</h1>
 
         {{ loop #messages as #msg }}
         {{ #msg |RAW }}
@@ -17,22 +17,22 @@
 
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Titre</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Extrait</th>
+                    <th scope="col">Titre catégorie</th>
+                    <th scope="col">Date de création</th>
+                    <th scope="col">Description catégorie</th>
                     <th scope="col">Modifier</th>
                     <th scope="col">Supprimer</th>
                 </tr>
             </thead>
             <tbody>
-                {{ loop #liste as #article }}
+                {{ loop #liste as #categorie }}
                 <tr>
-                    <th scope="row">{{ #article.id }}</th>
-                    <td>{{ #article.titre }}</td>
-                    <td>{{ #article.date_fr }}</td>
-                    <td>{{ #article.extrait }}</td>
-                    <td> <a href="edit-{{ #article.id }}" class="btn btn-primary">Modifier</a></td>
-                    <td> <a href="supp-{{ #article.id }}" class="btn btn-warning">Supprimer</a></td>
+                    <th scope="row">{{ #categorie.id_cat }}</th>
+                    <td>{{ #categorie.nom_cat }}</td>
+                    <td>{{ #categorie.date_creation }}</td>
+                    <td>{{ #categorie.description_cat }}</td>
+                    <td> <a href="edit-{{ #categorie.id_cat }}" class="btn btn-primary">Modifier</a></td>
+                    <td> <a href="supp-{{ #categorie.id_cat }}" class="btn btn-warning">Supprimer</a></td>
                 </tr>
                 {{ endloop }}
             </tbody>
